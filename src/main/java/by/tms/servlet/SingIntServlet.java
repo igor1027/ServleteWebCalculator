@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/singint")
+@WebServlet(value = "/singint", name = "SingIntServlet")
 public class SingIntServlet extends HttpServlet {
 
     private final AuthorizacionServiceImp sing = new AuthorizacionServiceImp();
@@ -19,7 +19,7 @@ public class SingIntServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if(accontDataVerification(username,password)){
+        if(accontDataVerification(username, password)){
             User user = getUser(username);
             req.getSession().setAttribute("user", user);
             resp.getWriter().println("You are logged into your account");
@@ -31,7 +31,7 @@ public class SingIntServlet extends HttpServlet {
 
     private boolean accontDataVerification(String username, String password){
         if(sing.checkUsername(username)){
-            sing.chechkPassword(username,password);
+           return sing.chechkPassword(username,password);
         }
         return false;
     }

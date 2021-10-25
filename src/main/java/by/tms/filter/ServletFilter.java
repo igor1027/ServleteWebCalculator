@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(servletNames = {"CalculatorServlet"})
+@WebFilter(servletNames = {"CalculatorServlet", "SingIntServlet", "RegistrationServlet", "LogautServlet", "DeleteAccountServlet", "CalculatorServlet",
+        "AccountPasswordChangeServlet", "AccountNameChangeServlet"})
 public class ServletFilter extends HttpFilter {
 
     @Override

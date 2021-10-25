@@ -1,4 +1,10 @@
 package by.tms.repository;
 
-public class CalculatorRepository {
+import by.tms.repository.options.ConnectedBD;
+
+public class CalculatorRepository extends ConnectedBD {
+
+    public static void addOperation(int userId, String operation){
+
+    }
 }

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/calc")
+@WebServlet(value = "/calc", name = "CalculatorServlet")
 public class CalculatorServlet extends HttpServlet {
 
     @Override
@@ -19,10 +19,10 @@ public class CalculatorServlet extends HttpServlet {
         String operation = req.getParameter("operation");
 
 
-        String result =operation + " = " + getValue(num1, num2, operation);
-        User user = (User) req.getSession().getAttribute("user");
-//        addResultInMemory(result, user.getId());
-        resp.getWriter().println(result);
+//        String result =operation + " = " + getValue(num1, num2, operation);
+//        User user = (User) req.getSession().getAttribute("user");
+//        addResultInMemory(user.getId(), result);
+//        resp.getWriter().println(result);
     }
 
     private double getValue(String num1, String num2, String operation) {
