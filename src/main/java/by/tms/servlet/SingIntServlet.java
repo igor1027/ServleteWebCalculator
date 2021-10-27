@@ -10,24 +10,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value = "/singint", name = "SingIntServlet")
+@WebServlet(value = "/authorization", name = "SingIntServlet")
 public class SingIntServlet extends HttpServlet {
 
     private final AuthorizacionServiceImp sing = new AuthorizacionServiceImp();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        getServletContext().getRequestDispatcher("/pages/auth.jsp").forward(req,resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if(accontDataVerification(username, password)){
-            User user = getUser(username);
-            req.getSession().setAttribute("user", user);
-            resp.getWriter().println("You are logged into your account");
-        }else {
-            resp.getWriter().println("Username or password entered incorrectly");
+        if (checkValueForNullString(username,password)){
+            if(accontDataVerification(username, password)){
+                User user = getUser(username);
+                req.getSession().setAttribute("user", user);
+                resp.getWriter().println("You are logged into your account");
+                resp.sendRedirect("/");
+            }else {
+                resp.getWriter().println("Username or password entered incorrectly");
+            }
         }
     }
-
 
     private boolean accontDataVerification(String username, String password){
         if(sing.checkUsername(username)){
@@ -38,5 +46,12 @@ public class SingIntServlet extends HttpServlet {
 
     private User getUser (String username){
         return sing.gettingUser(username);
+    }
+
+    private boolean checkValueForNullString(String username, String password) {
+        if (username != null && password != null) {
+            return!username.isEmpty() && !password.isEmpty();
+        }
+        return false;
     }
 }

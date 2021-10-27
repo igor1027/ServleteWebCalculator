@@ -88,13 +88,12 @@ public class UserRepositoryFunction extends ConnectedBD {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
-                String query = "SELECT * FROM USERS WHERE username = ?";
+                String query = "SELECT * FROM user.users WHERE users.username = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
                     prep.setString(1, username);
                     ResultSet rs = prep.executeQuery();
                     if(rs.next()){
-                        return new User(rs.getInt(1),rs.getString(2), rs.getString(3),
-                                rs.getString(4));
+                        return new User(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4));
                     }
                 }
             } catch (SQLException se) {

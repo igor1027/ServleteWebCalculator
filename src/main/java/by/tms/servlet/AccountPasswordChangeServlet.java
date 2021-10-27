@@ -16,6 +16,13 @@ public class AccountPasswordChangeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        getServletContext().getRequestDispatcher("/pages/name_change.jsp").forward(req, resp);
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String changePassword = req.getParameter("password");
 
         User user = (User) req.getSession().getAttribute("user");

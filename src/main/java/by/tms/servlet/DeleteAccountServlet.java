@@ -16,10 +16,14 @@ public class DeleteAccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/pages/deleted.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
         UserRepositoryFunction.deleteUser((int) user.getId());
         resp.getWriter().println("Account deleted");
         req.getSession().invalidate();
     }
-
 }

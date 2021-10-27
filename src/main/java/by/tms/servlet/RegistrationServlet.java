@@ -15,22 +15,50 @@ public class RegistrationServlet extends HttpServlet {
     RegistrationService registrationService = new RegistrationService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       String name = req.getParameter("name");
-       String username = req.getParameter("username");
-       String password = req.getParameter("password");
-
-       if (checkNewUser(username)){
-          createNewUser(name,username,password);
-       }else {
-           resp.getWriter().println("Error while creating user (Username is already taken)");
-       }
+//       String name = req.getParameter("name");
+//       String username = req.getParameter("username");
+//       String password = req.getParameter("password");
+//
+//       if (checkNewUser(username)){
+//          createNewUser(name,username,password);
+//       }else {
+//           resp.getWriter().println("Error while creating user (Username is already taken)");
+//       }
+        getServletContext().getRequestDispatcher("/pages/reg.jsp").forward(req,resp);
     }
 
-    public void createNewUser(String name,String username, String password){
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String name = req.getParameter("name");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        if (checkValueForNull(name,username,password)){
+            if (checkNewUser(username)){
+                createNewUser(name,username,password);
+                resp.sendRedirect("/");
+            }else {
+                resp.getWriter().println("Error while creating user (Username is already taken)");
+            }
+        }else {
+            resp.getWriter().println("You have not entered values in the fields");
+            resp.sendRedirect("/registration");
+        }
+
+    }
+
+    public void createNewUser(String name, String username, String password){
         RegistrationService.createUser(name,username,password);
     }
 
     public boolean checkNewUser(String username){
         return registrationService.checkUsername(username);
+    }
+
+    private boolean checkValueForNull(String name, String username, String password) {
+        if (name != null && username != null && password != null) {
+            return !name.isEmpty() && !username.isEmpty() && !password.isEmpty();
+        }
+        return false;
     }
 }
