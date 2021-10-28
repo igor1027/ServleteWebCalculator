@@ -1,5 +1,6 @@
 package by.tms.service;
 
+import by.tms.repository.CalculatorRepository;
 import by.tms.service.inf.CalcService;
 
 public class CalcServiceImp implements CalcService {
@@ -32,6 +33,10 @@ public class CalcServiceImp implements CalcService {
         double number1 = Double.parseDouble(num1);
         double number2 = Double.parseDouble(num2);
         return number1 / number2;
+    }
+
+    public  void addResultInMemory(int userId, String result){
+      CalculatorRepository.addOperation(userId, result);
     }
 
 }

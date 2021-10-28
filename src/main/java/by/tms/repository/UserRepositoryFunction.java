@@ -35,7 +35,7 @@ public class UserRepositoryFunction extends ConnectedBD {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
-                String query = "UPDATE USERS SET username = ? WHERE name = ?";
+                String query = "UPDATE USERS SET name = ? WHERE id = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
                     prep.setString(1, newName);
                     prep.setInt(2, userId);
@@ -53,7 +53,7 @@ public class UserRepositoryFunction extends ConnectedBD {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
-                String query = "UPDATE USERS SET password = ? WHERE name = ?";
+                String query = "UPDATE USERS SET password = ? WHERE id = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
                     prep.setString(1, newPassword);
                     prep.setInt(2, userId);
@@ -71,7 +71,7 @@ public class UserRepositoryFunction extends ConnectedBD {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
-                String query = "DELETE FROM USERS WHERE name = ?";
+                String query = "DELETE FROM USERS WHERE id = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
                     prep.setInt(1, userId);
                     prep.execute();

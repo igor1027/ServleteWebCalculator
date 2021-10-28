@@ -22,13 +22,12 @@ public class AccountNameChangeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String changeName = req.getParameter("name");
 
-//        User user = (User) req.getSession().getAttribute("user");
-        User user = (User) req.getAttribute("user");
+        User user = (User) req.getSession().getAttribute("user");
 
         if(checkNameForNullString(changeName)){
-            UserRepositoryFunction.changeName((int) user.getId(),changeName);
+            UserRepositoryFunction.changeName(user.getId(), changeName);
             resp.getWriter().println("Name changed successfully");
-            resp.getWriter().println("New name" + user.getName());
+            resp.getWriter().println("New name " + user.getName());
         }else {
             resp.getWriter().println("Incorrect values entered");
         }
