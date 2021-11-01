@@ -1,4 +1,4 @@
-package by.tms.filter;
+package by.tms.web.servlet.filter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

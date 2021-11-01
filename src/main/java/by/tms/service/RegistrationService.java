@@ -8,7 +8,7 @@ public class RegistrationService {
 
     public static void createUser(String name, String username, String password){
         User user = new User(name,username,password);
-        UserRepositoryFunction.addUser(user);
+        UserRepositoryFunction.saveUser(user);
     }
     public boolean checkUsername(String username){
         return !UserRepositoryCheck.checkForExistenceName(username);

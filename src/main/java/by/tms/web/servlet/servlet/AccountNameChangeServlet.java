@@ -1,7 +1,7 @@
-package by.tms.servlet;
+package by.tms.web.servlet.servlet;
 
 import by.tms.entity.User;
-import by.tms.repository.UserRepositoryFunction;
+import by.tms.service.ChangeService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,23 +20,27 @@ public class AccountNameChangeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String changeName = req.getParameter("name");
+        String newName = req.getParameter("name");
 
         User user = (User) req.getSession().getAttribute("user");
 
-        if(checkNameForNullString(changeName)){
-            UserRepositoryFunction.changeName(user.getId(), changeName);
+        if(checkNameForNull(newName)){
+            changeName(user.getId(), newName);
             resp.getWriter().println("Name changed successfully");
             resp.getWriter().println("New name " + user.getName());
+            resp.sendRedirect("/");
         }else {
             resp.getWriter().println("Incorrect values entered");
+            resp.sendRedirect("/");
         }
     }
 
-    private boolean checkNameForNullString(String changeName) {
-        if (changeName != null) {
-            return!changeName.isEmpty();
-        }
-        return false;
+    private boolean checkNameForNull(String password){
+        return password != null && password.isEmpty();
+    }
+
+    private void changeName(int id, String newName){
+        ChangeService changeService = new ChangeService();
+        changeService.nameChange(id, newName);
     }
 }

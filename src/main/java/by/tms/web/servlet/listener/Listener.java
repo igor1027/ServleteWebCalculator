@@ -1,4 +1,4 @@
-package by.tms.lisener;
+package by.tms.web.servlet.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

@@ -1,4 +1,4 @@
-package by.tms.servlet;
+package by.tms.web.servlet.servlet;
 
 import by.tms.entity.User;
 import by.tms.service.AuthorizacionServiceImp;

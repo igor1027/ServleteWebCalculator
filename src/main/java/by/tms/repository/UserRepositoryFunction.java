@@ -2,6 +2,8 @@ package by.tms.repository;
 
 import by.tms.entity.User;
 import by.tms.repository.options.ConnectedBD;
+import by.tms.repository.options.Constans;
+//import com.sun.org.apache.bcel.internal.Const;
 
 import java.sql.*;
 
@@ -12,11 +14,12 @@ public class UserRepositoryFunction extends ConnectedBD {
 //    private static final String login = "root";
 //    private static final String password = "root";
 
-    public static void addUser(User user){
+    public static void saveUser(User user){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
-                String query =  "INSERT INTO users (name, username, password) values (?, ?, ?)";
+                String query = "INSERT INTO " + Constans.USER_TABLE + "(" + Constans.USER_NAME + ", "
+                        + Constans.USER_USERNAME + ", "+ Constans.USER_PASSWORD + ")" + " values (?, ?, ?)";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
                     prep.setString(1, user.getName());
                     prep.setString(2, user.getUsername());
@@ -35,7 +38,7 @@ public class UserRepositoryFunction extends ConnectedBD {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
-                String query = "UPDATE USERS SET name = ? WHERE id = ?";
+                String query = "UPDATE " + Constans.USER_TABLE + " SET " + Constans.USER_NAME + " = ? WHERE " + Constans.USER_ID + " = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
                     prep.setString(1, newName);
                     prep.setInt(2, userId);
@@ -53,7 +56,7 @@ public class UserRepositoryFunction extends ConnectedBD {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
-                String query = "UPDATE USERS SET password = ? WHERE id = ?";
+                String query = "UPDATE "+ Constans.USER_TABLE +" SET "+ Constans.USER_PASSWORD + " = ? WHERE " + Constans.USER_ID + " = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
                     prep.setString(1, newPassword);
                     prep.setInt(2, userId);
@@ -71,7 +74,7 @@ public class UserRepositoryFunction extends ConnectedBD {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
-                String query = "DELETE FROM USERS WHERE id = ?";
+                String query = "DELETE FROM " + Constans.USER_TABLE + " WHERE "+ Constans.USER_ID +" = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
                     prep.setInt(1, userId);
                     prep.execute();
@@ -88,7 +91,7 @@ public class UserRepositoryFunction extends ConnectedBD {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
-                String query = "SELECT * FROM user.users WHERE users.username = ?";
+                String query = "SELECT * FROM "+ Constans.USER_TABLE + " WHERE " + Constans.USER_USERNAME + " = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
                     prep.setString(1, username);
                     ResultSet rs = prep.executeQuery();

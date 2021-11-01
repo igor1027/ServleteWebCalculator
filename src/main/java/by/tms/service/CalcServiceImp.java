@@ -3,6 +3,8 @@ package by.tms.service;
 import by.tms.repository.CalculatorRepository;
 import by.tms.service.inf.CalcService;
 
+import java.util.List;
+
 public class CalcServiceImp implements CalcService {
 
     @Override
@@ -35,8 +37,12 @@ public class CalcServiceImp implements CalcService {
         return number1 / number2;
     }
 
-    public  void addResultInMemory(int userId, String result){
-      CalculatorRepository.addOperation(userId, result);
+    public  void saveResultInMemory(String num1, String operation, String num2, String result, int id){
+      CalculatorRepository.saveOperation(num1, operation, num2, result, id);
+    }
+
+    public List<String> showOperation (int id){
+        return CalculatorRepository.getOperation(id) ;
     }
 
 }
