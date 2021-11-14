@@ -16,7 +16,6 @@ public class SingIntServlet extends HttpServlet {
     private final AuthorizacionServiceImp sing = new AuthorizacionServiceImp();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         getServletContext().getRequestDispatcher("/pages/auth.jsp").forward(req,resp);
     }
 
@@ -29,11 +28,13 @@ public class SingIntServlet extends HttpServlet {
             if(accontDataVerification(username, password)){
                 User user = getUser(username);
                 req.getSession().setAttribute("user", user);
-                resp.getWriter().println("You are logged into your account");
                 resp.sendRedirect("/");
             }else {
-                resp.getWriter().println("Username or password entered incorrectly");
+                req.setAttribute("message", "Wrong password");
             }
+        }else {
+            req.setAttribute("message", "User not found!");
+            getServletContext().getRequestDispatcher("/pages/auth.jsp").forward(req,resp);
         }
     }
 

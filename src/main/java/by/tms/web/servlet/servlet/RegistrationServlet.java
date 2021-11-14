@@ -15,15 +15,6 @@ public class RegistrationServlet extends HttpServlet {
     RegistrationService registrationService = new RegistrationService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//       String name = req.getParameter("name");
-//       String username = req.getParameter("username");
-//       String password = req.getParameter("password");
-//
-//       if (checkNewUser(username)){
-//          createNewUser(name,username,password);
-//       }else {
-//           resp.getWriter().println("Error while creating user (Username is already taken)");
-//       }
         getServletContext().getRequestDispatcher("/pages/reg.jsp").forward(req,resp);
     }
 
@@ -38,11 +29,11 @@ public class RegistrationServlet extends HttpServlet {
                 createNewUser(name,username,password);
                 resp.sendRedirect("/");
             }else {
-                resp.getWriter().println("Error while creating user (Username is already taken)");
+                req.setAttribute("message", "Error while creating user (Username is already taken)");
             }
         }else {
-            resp.getWriter().println("You have not entered values in the fields");
-            resp.sendRedirect("/registration");
+            req.setAttribute("message", "You have not entered values in the fields");
+            getServletContext().getRequestDispatcher("/pages/reg.jsp").forward(req,resp);
         }
 
     }

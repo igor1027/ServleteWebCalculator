@@ -11,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
+<jsp:include page="_header.jsp"/>
 <form action="${pageContext.request.contextPath}/deleted_account" method="post">
 </form>
 </body>

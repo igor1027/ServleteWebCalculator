@@ -1,18 +1,19 @@
 package by.tms.repository;
 
+import by.tms.entity.CalculatorHistory;
 import by.tms.entity.User;
 import by.tms.repository.options.ConnectedBD;
 import by.tms.repository.options.Constans;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CalculatorRepository extends ConnectedBD {
 
     public static void saveOperation(String num1, String operation, String num2, String result, int id){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
                 String query =  "INSERT INTO " + Constans.OPERATION_TABLE + " ( " + Constans.OPERATION_NUM1 + ", "
                         + Constans.OPERATION_OPERATIONS + ", " + Constans.OPERATION_NUM2 + ", " + Constans.OPERATION_RESULT + ", " + Constans.OPERATION_USER_ID + " ) values (?, ?, ? , ?, ?)";
@@ -27,31 +28,34 @@ public class CalculatorRepository extends ConnectedBD {
             } catch (SQLException se) {
                 se.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    public  static List<String> getOperation (int id){
-        List<String> operationList = new ArrayList<>();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+    public  static LinkedList<String> getOperation (int id){
+        LinkedList<String> operationList = new LinkedList<>();
+
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
-                String query = "SELECT " + Constans.OPERATION_RESULT + " FROM "+ Constans.OPERATION_TABLE + " WHERE " + Constans.OPERATION_USER_ID + " = ?";
+                String query = "SELECT " + Constans.OPERATION_NUM1 +", "+ Constans.OPERATION_OPERATIONS + ", " +
+                        Constans.OPERATION_NUM2 + ", " + Constans.OPERATION_RESULT + " FROM "+ Constans.OPERATION_TABLE + " WHERE " + Constans.OPERATION_USER_ID + " = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
                     prep.setInt(1, id);
                     ResultSet rs = prep.executeQuery();
                     while (rs.next()){
-                        operationList.add(rs.getString(1));
+//                        operationList.addFirst(rs.getString(1));
+//                        operationList.addFirst(rs.getString(2));
+//                        operationList.addFirst(rs.getString(3));
+//                        operationList.addFirst(rs.getString(4));
+                        String num1 = rs.getString(1);
+                        String operation = rs.getString(2);
+                        String num2 = rs.getString(3);
+                        String result = rs.getString(4);
+                        CalculatorHistory historyOperation = new CalculatorHistory(num1,operation, num2, result);
+                        operationList.addFirst(String.valueOf(historyOperation));
                     }
                     return operationList;
                 }
             } catch (SQLException se) {
                 se.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return null;
     }
 }

@@ -1,8 +1,10 @@
 package by.tms.service;
 
+import by.tms.entity.CalculatorHistory;
 import by.tms.repository.CalculatorRepository;
 import by.tms.service.inf.CalcService;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class CalcServiceImp implements CalcService {
@@ -41,7 +43,7 @@ public class CalcServiceImp implements CalcService {
       CalculatorRepository.saveOperation(num1, operation, num2, result, id);
     }
 
-    public List<String> showOperation (int id){
+    public LinkedList<String> showOperation (int id){
         return CalculatorRepository.getOperation(id) ;
     }
 
