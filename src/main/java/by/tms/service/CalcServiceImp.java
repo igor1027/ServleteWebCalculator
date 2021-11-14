@@ -1,11 +1,9 @@
 package by.tms.service;
 
-import by.tms.entity.CalculatorHistory;
 import by.tms.repository.CalculatorRepository;
 import by.tms.service.inf.CalcService;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class CalcServiceImp implements CalcService {
 

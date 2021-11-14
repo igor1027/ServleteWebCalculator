@@ -51,8 +51,8 @@
                 <p>
                    <ul>
                       <ol class="list-group list-group-numbered">
-                        <c:forEach var="operation" items="${requestScope.listOperation}">
-                        <li><c:out value="${operation}"/> </li>
+                        <c:forEach var="listOperation" items="${requestScope.listOperation}">
+                        <li><c:out value="${listOperation}"/> </li>
                         </c:forEach>
                       </ol>
                    </ul>

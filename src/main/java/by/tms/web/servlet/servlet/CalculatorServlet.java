@@ -1,6 +1,5 @@
 package by.tms.web.servlet.servlet;
 
-import by.tms.entity.CalculatorHistory;
 import by.tms.entity.User;
 import by.tms.service.CalcServiceImp;
 

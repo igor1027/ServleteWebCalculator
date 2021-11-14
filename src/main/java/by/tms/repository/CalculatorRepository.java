@@ -1,14 +1,10 @@
 package by.tms.repository;
 
-import by.tms.entity.CalculatorHistory;
-import by.tms.entity.User;
 import by.tms.repository.options.ConnectedBD;
 import by.tms.repository.options.Constans;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class CalculatorRepository extends ConnectedBD {
 
@@ -48,8 +44,8 @@ public class CalculatorRepository extends ConnectedBD {
                         String operation = rs.getString(2);
                         String num2 = rs.getString(3);
                         String result = rs.getString(4);
-                        CalculatorHistory historyOperation = new CalculatorHistory(num1,operation, num2, result);
-                        operationList.addFirst(String.valueOf(historyOperation));
+                        String historyOperation = num1 + " " + operation + " " + num2 + " " + " = " +result;
+                        operationList.addFirst(historyOperation);
                     }
                     return operationList;
                 }
