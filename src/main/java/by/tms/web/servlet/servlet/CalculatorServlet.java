@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.LinkedList;
 
 @WebServlet(value = "/calc", name = "CalculatorServlet")
 public class CalculatorServlet extends HttpServlet {
@@ -27,10 +27,10 @@ public class CalculatorServlet extends HttpServlet {
         String num2 = req.getParameter("num2");
 
 
-        String result = operation + " = " + getValue(num1, num2, operation);
+        String result = String.valueOf(getValue(num1, num2, operation));
         User user = (User) req.getSession().getAttribute("user");
-        addCalculatedResultInMemory(num1, operation, num2, String.valueOf(result), user.getId());
-        List<String> listOperation = getOperation(user.getId());
+        addCalculatedResultInMemory(num1, operation, num2, result, user.getId());
+        LinkedList<String> listOperation = getOperation(user.getId());
         req.setAttribute("listOperation", listOperation);
         getServletContext().getRequestDispatcher("/pages/calcul.jsp").forward(req,resp);
 //        resp.sendRedirect("/calc");
@@ -42,7 +42,7 @@ public class CalculatorServlet extends HttpServlet {
         calc.saveResultInMemory(num1, operation, num2, result, id);
     }
 
-    private List<String> getOperation (int id){
+    private LinkedList<String> getOperation (int id){
         return calc.showOperation(id);
     }
 

@@ -15,8 +15,7 @@ public class UserRepositoryFunction extends ConnectedBD {
 //    private static final String password = "root";
 
     public static void saveUser(User user){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
                 String query = "INSERT INTO " + Constans.USER_TABLE + "(" + Constans.USER_NAME + ", "
                         + Constans.USER_USERNAME + ", "+ Constans.USER_PASSWORD + ")" + " values (?, ?, ?)";
@@ -29,14 +28,11 @@ public class UserRepositoryFunction extends ConnectedBD {
             } catch (SQLException se) {
                 se.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
     public static void changeName(int userId, String newName){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
                 String query = "UPDATE " + Constans.USER_TABLE + " SET " + Constans.USER_NAME + " = ? WHERE " + Constans.USER_ID + " = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
@@ -47,14 +43,11 @@ public class UserRepositoryFunction extends ConnectedBD {
             } catch (SQLException se) {
                 se.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
     public static void changePassword(int userId, String newPassword){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
                 String query = "UPDATE "+ Constans.USER_TABLE +" SET "+ Constans.USER_PASSWORD + " = ? WHERE " + Constans.USER_ID + " = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
@@ -65,14 +58,11 @@ public class UserRepositoryFunction extends ConnectedBD {
             } catch (SQLException se) {
                 se.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
     public static void deleteUser(int userId){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
                 String query = "DELETE FROM " + Constans.USER_TABLE + " WHERE "+ Constans.USER_ID +" = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
@@ -82,14 +72,11 @@ public class UserRepositoryFunction extends ConnectedBD {
             } catch (SQLException se) {
                 se.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
     public static User getUser(String username) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+
             try (Connection connection = DriverManager.getConnection(url, login, passwordBD)) {
                 String query = "SELECT * FROM "+ Constans.USER_TABLE + " WHERE " + Constans.USER_USERNAME + " = ?";
                 try (PreparedStatement prep = connection.prepareStatement(query)) {
@@ -102,9 +89,7 @@ public class UserRepositoryFunction extends ConnectedBD {
             } catch (SQLException se) {
                 se.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         return null;
     }
 

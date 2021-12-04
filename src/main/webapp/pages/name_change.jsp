@@ -11,11 +11,21 @@
     <title>Name</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/change_username" method="post">
-    <label>
-        <input type="text" name="name" placeholder="Name">
-    </label>
-    <button>Submit</button>
-</form>
+<jsp:include page="_header.jsp"/>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
+           <form action="${pageContext.request.contextPath}/change_username" method="post">
+               <label>
+                   <div class="mb-3">
+                       <label for="exampleInputEmail1" class="form-label">Enter a new name</label>
+                       <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                   </div>
+               </label>
+               <button type="submit" class="btn btn-primary">Submit</button>
+           </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
